@@ -1,0 +1,450 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "description": " VUTTR (Very Useful Tools to Remember). This application is a simple repository for managing tools with their respective names, links, descriptions and tags.",
+      "version": "1.0.0",
+      "title": "VUTTR API",
+      "contact": {
+          "name": "Gabriel Rodrigues da Silva Pires",
+          "url": "https://www.linkedin.com/in/gabriel-rodrigues-a4b292120/"
+      }
+  },
+  "servers": [
+      {
+          "url": "",
+          "description": ""
+      },
+      {
+          "url": "",
+          "description": ""
+      }
+  ],
+  "basePath": "/vuttr-api",
+  "consumes": [
+      "application/json"
+  ],
+  "produces": [
+      "application/json"
+  ],
+  "schemes": [
+      "http",
+      "https"
+  ],
+  "paths": {
+      "/register": {
+          "post": {
+              "tags": [
+                  "Register"
+              ],
+              "summary": "Register a new user",
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "User",
+                      "description": "User to create",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/UserRegister"
+                      }
+                  }
+              ],
+              "produces": [
+                  "application/json"
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/UserResponse"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized."
+                  },
+                  "400": {
+                      "description": "Invalid User."
+                  }
+              }
+          }
+      },
+      "/authenticate": {
+          "post": {
+              "tags": [
+                  "Authentication"
+              ],
+              "summary": "Authentication",
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "User Authenticate",
+                      "description": "User Authenticate Object",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/UserAuthenticate"
+                      }
+                  }
+              ],
+              "produces": [
+                  "application/json"
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/UserResponse"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized."
+                  },
+                  "400": {
+                      "description": "Invalid User."
+                  }
+              }
+          }
+      },
+      "/tools": {
+          "get": {
+              "tags": [
+                  "Tools"
+              ],
+              "summary": "Get all tools",
+              "parameters": [
+                  {
+                      "in": "query",
+                      "name": "tag",
+                      "description": "Search tools by specific tag",
+                      "required": false,
+                      "type": "string"
+                  },
+                  {
+                      "in": "query",
+                      "name": "page",
+                      "description": "Page",
+                      "required": false,
+                      "type": "integer"
+                  },
+                  {
+                      "in": "query",
+                      "name": "limit",
+                      "description": "Tools limit per page",
+                      "required": false,
+                      "type": "integer"
+                  },
+                  {
+                      "in": "query",
+                      "name": "sort",
+                      "description": "Field used to sort a query",
+                      "required": false,
+                      "type": "string"
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/Tool"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized."
+                  },
+                  "404": {
+                      "description": "Tools not found."
+                  }
+              },
+              "security": [
+                  {
+                      "JWT": []
+                  }
+              ]
+          },
+          "post": {
+              "tags": [
+                  "Tools"
+              ],
+              "summary": "Create a new tool",
+              "parameters": [
+                  {
+                      "in": "body",
+                      "name": "Tool",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/ToolRequest"
+                      }
+                  }
+              ],
+              "produces": [
+                  "application/json"
+              ],
+              "responses": {
+                  "201": {
+                      "description": "Created",
+                      "schema": {
+                          "$ref": "#/definitions/Tool"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized."
+                  },
+                  "400": {
+                      "description": "Invalid tool."
+                  }
+              },
+              "security": [
+                  {
+                      "JWT": []
+                  }
+              ]
+          }
+      },
+      "/tools/{id}": {
+          "parameters": [
+              {
+                  "name": "id",
+                  "in": "path",
+                  "required": true,
+                  "description": "ID of the tool that we want to match",
+                  "type": "string"
+              }
+          ],
+          "get": {
+              "tags": [
+                  "Tools"
+              ],
+              "summary": "Get tool with given ID",
+              "parameters": [
+                  {
+                      "in": "path",
+                      "name": "id",
+                      "required": true,
+                      "description": "Tool with id",
+                      "schema": {
+                          "$ref": "#/definitions/id"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/Tool"
+                      }
+                  },
+                  "401": {
+                      "description": "Unauthorized."
+                  },
+                  "404": {
+                      "description": "Tool not found."
+                  }
+              },
+              "security": [
+                  {
+                      "JWT": []
+                  }
+              ]
+          },
+          "put": {
+              "summary": "Update tool with given ID",
+              "tags": [
+                  "Tools"
+              ],
+              "parameters": [
+                  {
+                      "in": "path",
+                      "name": "id",
+                      "required": true,
+                      "description": "Tool with new values of properties",
+                      "schema": {
+                          "$ref": "#/definitions/id"
+                      }
+                  },
+                  {
+                      "in": "body",
+                      "name": "Tool",
+                      "required": true,
+                      "schema": {
+                          "$ref": "#/definitions/ToolRequest"
+                      }
+                  }
+              ],
+              "responses": {
+                  "200": {
+                      "description": "OK",
+                      "schema": {
+                          "$ref": "#/definitions/Tool"
+                      }
+                  },
+                  "400": {
+                      "description": "Invalid tool."
+                  },
+                  "401": {
+                      "description": "Unauthorized."
+                  },
+                  "404": {
+                      "description": "Tool not found."
+                  }
+              },
+              "security": [
+                  {
+                      "JWT": []
+                  }
+              ]
+          },
+          "delete": {
+              "summary": "Delete tool with given ID",
+              "tags": [
+                  "Tools"
+              ],
+              "parameters": [
+                  {
+                      "in": "path",
+                      "name": "id",
+                      "required": true,
+                      "description": "Delete Tool with id",
+                      "schema": {
+                          "$ref": "#/definitions/id"
+                      }
+                  }
+              ],
+              "responses": {
+                  "204": {
+                      "description": "No content"
+                  },
+                  "401": {
+                      "description": "Unauthorized."
+                  },
+                  "404": {
+                      "description": "Tool not found."
+                  }
+              },
+              "security": [
+                  {
+                      "JWT": []
+                  }
+              ]
+          }
+      }
+  },
+  "securityDefinitions": {
+      "JWT": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header"
+      }
+  },
+  "definitions": {
+      "User": {
+          "type": "object",
+          "properties": {
+              "_id": {
+                  "type": "string"
+              },
+              "name": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "updatedAt": {
+                  "type": "string"
+              }
+          }
+      },
+      "UserRegister": {
+          "type": "object",
+          "properties": {
+              "name": {
+                  "type": "string"
+              },
+              "email": {
+                  "type": "string"
+              },
+              "password_hash": {
+                  "type": "string"
+              }
+          }
+      },
+      "UserAuthenticate": {
+          "type": "object",
+          "properties": {
+              "email": {
+                  "type": "string"
+              },
+              "password_hash": {
+                  "type": "string"
+              }
+          }
+      },
+      "UserResponse": {
+          "type": "object",
+          "properties": {
+              "user": {
+                  "$ref": "#/definitions/User"
+              },
+              "token": {
+                  "type": "string"
+              }
+          }
+      },
+      "id": {
+          "properties": {
+              "id": {
+                  "type": "ObjectId"
+              }
+          }
+      },
+      "Tool": {
+          "type": "object",
+          "properties": {
+              "_id": {
+                  "type": "string"
+              },
+              "title": {
+                  "type": "string"
+              },
+              "link": {
+                  "type": "string"
+              },
+              "description": {
+                  "type": "string"
+              },
+              "tags": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              },
+              "createdAt": {
+                  "type": "string"
+              },
+              "updatedAt": {
+                  "type": "string"
+              }
+          }
+      },
+      "ToolRequest": {
+          "type": "object",
+          "properties": {
+              "title": {
+                  "type": "string"
+              },
+              "link": {
+                  "type": "string"
+              },
+              "description": {
+                  "type": "string"
+              },
+              "tags": {
+                  "type": "array",
+                  "items": {
+                      "type": "string"
+                  }
+              }
+          }
+      }
+  }
+}
