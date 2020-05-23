@@ -1,7 +1,10 @@
+import 'dotenv/config';
 import express from 'express';
+import 'express-async-errors';
 import routes from './routes';
+import Youch from 'youch';
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../src/swagger.json')
+const swaggerDocument = require('../src/swagger.json');
 
 
 import './database';
@@ -12,10 +15,10 @@ class App {
 
     this.middlewares();
     this.routes();
+    this.exceptionHandler();
     this.server.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   }
-
 
   middlewares() {
     this.server.use(express.json());
@@ -24,6 +27,20 @@ class App {
   routes() {
     this.server.use(routes);
   }
+
+  exceptionHandler() {
+    this.server.use(async (err, req, res, next) => {
+      if (process.env.NODE_ENV === 'development') {
+
+        const errors = await new Youch(err, req).toJSON();
+
+        return res.status(500).json(errors)
+      }
+
+      return res.status(500).json({ error: 'Internal server error' });
+    });
+  }
+
 }
 
 export default new App().server;

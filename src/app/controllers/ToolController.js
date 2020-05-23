@@ -3,26 +3,28 @@ import * as Yup from 'yup';
 import { Op } from 'sequelize';
 
 class ToolController {
-  async index(req, res) {
-    const tool = await Tool.findAll({
-      attributes: ['id', 'title', 'link', 'description', 'tags'],
-    })
-    return res.json(tool);
-  }
 
   async index(req, res) {
-    const tag = req.query.tag;
-    console.log(tag)
-    const tool = await Tool.findAll({
-      attributes: ['id', 'title', 'link', 'description', 'tags'],
-      where: {
-        tags: {
-          [Op.contains]: [tag]
+
+    if (req.query.tag) {
+      const tag = req.query.tag;
+
+      const tool = await Tool.findAll({
+        attributes: ['id', 'title', 'link', 'description', 'tags'],
+        where: {
+          tags: {
+            [Op.contains]: [tag]
+          }
         }
-      }
-    })
+      })
+      return res.json(tool);
 
-    return res.json(tool);
+    } else {
+      const tool = await Tool.findAll({
+        attributes: ['id', 'title', 'link', 'description', 'tags'],
+      })
+      return res.json(tool);
+    }
   }
 
   async store(req, res) {
