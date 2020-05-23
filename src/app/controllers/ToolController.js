@@ -44,12 +44,32 @@ class ToolController {
       link,
       description,
       tags
-
     });
 
-    return res.json(tool);
+    return res.status(201).json(tool);
   }
 
+  async delete(req, res) {
+
+    const { id } = req.params
+
+    const tool = await Tool.findOne({
+      where:
+      {
+        id
+      }
+    });
+
+    if (tool) {
+      await Tool.destroy({
+        where: {
+          id
+        }
+      });
+
+      return res.status(204).send()
+    }
+  }
 }
 
 export default new ToolController();
