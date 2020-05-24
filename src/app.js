@@ -8,8 +8,9 @@ import RateLimitRedis from 'rate-limit-redis';
 import cors from 'cors';
 import routes from './routes';
 import Youch from 'youch';
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../src/swagger.json');
+
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../src/swagger.json';
 
 
 import './database';
@@ -17,11 +18,11 @@ import './database';
 class App {
   constructor() {
     this.server = express();
+    this.server.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
     this.middlewares();
     this.routes();
     this.exceptionHandler();
-    this.server.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
   }
 
