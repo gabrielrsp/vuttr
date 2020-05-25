@@ -1,4 +1,3 @@
-
 import * as Yup from 'yup';
 
 export default async (req, res, next) => {
