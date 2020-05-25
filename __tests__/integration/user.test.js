@@ -25,6 +25,7 @@ describe('User', () => {
   });
 
   it('should be able to register', async () => {
+    await truncate();
     const response = await request(app)
     .post('/users')
     .send({
@@ -38,25 +39,33 @@ describe('User', () => {
 
 
   it('should not be able to register without name', async () => {
-    const user = await factory.attrs('Auth');
-
     const response = await request(app)
       .post('/users')
-      .send(user);
+      .send({
+        email: 'joao@vuttr.com',
+        password: '123456'
+      });
 
     expect(response.status).toBe(400);
   });
 
 
   it('should not be able to register with duplicated email', async () => {
-    const user = await factory.attrs('User');
     await request(app)
       .post('/users')
-      .send(user);
+      .send({
+        name: 'joao',
+        email: 'joao@vuttr.com',
+        password: '123456'
+      });
 
-    const response = await request(app)
+     const response = await request(app)
       .post('/users')
-      .send(user);
+      .send({
+        name: 'john',
+        email: 'joao@vuttr.com',
+        password: '123456'
+      });
 
     expect(response.status).toBe(400);
   });
@@ -80,6 +89,8 @@ describe('User', () => {
 
 
   it('should not be able to update user with an email that already exists', async () => {
+    await truncate();
+
     await request(app)
       .post('/users')
       .send({
