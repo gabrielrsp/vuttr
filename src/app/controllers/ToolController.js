@@ -7,6 +7,7 @@ class ToolController {
 
     if (req.query.tag) {
       const tag = req.query.tag;
+      console.log(tag)
       const tool = await Tool.findAll({
         attributes: ['id', 'title', 'link', 'description', 'tags'],
         where: {
@@ -35,7 +36,13 @@ class ToolController {
       tags
     });
 
-    return res.status(201).json(tool);
+    return res.status(201).json({
+      title,
+      link,
+      description,
+      tags,
+      id: tool.id
+    });
   }
 
   async delete(req, res) {

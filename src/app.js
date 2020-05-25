@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import './bootstrap';
+
 import express from 'express';
 import 'express-async-errors';
 import helmet from 'helmet';
@@ -12,7 +13,6 @@ import Youch from 'youch';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../src/swagger.json';
 
-
 import './database';
 
 class App {
@@ -23,7 +23,6 @@ class App {
     this.middlewares();
     this.routes();
     this.exceptionHandler();
-
   }
 
   middlewares() {
