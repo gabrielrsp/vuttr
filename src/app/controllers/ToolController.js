@@ -7,7 +7,7 @@ class ToolController {
 
     if (req.query.tag) {
       const tag = req.query.tag;
-      console.log(tag)
+
       const tool = await Tool.findAll({
         attributes: ['id', 'title', 'link', 'description', 'tags'],
         where: {
