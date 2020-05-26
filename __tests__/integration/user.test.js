@@ -88,7 +88,6 @@ describe('User', () => {
 
 
   it('should not be able to update user with an email that already exists', async () => {
-    await truncate();
 
     await request(app)
       .post('/users')

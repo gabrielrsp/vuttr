@@ -10,15 +10,15 @@ export default async () => {
   await request(app)
   .post('/users')
   .send({
-    name: 'joao',
-    email: 'joao@vuttr.com',
+    name: 'maria',
+    email: 'maria@vuttr.com',
     password: '123456'
   });
 
   const response = await request(app)
   .post('/sessions')
   .send({
-    email: 'joao@vuttr.com',
+    email: 'maria@vuttr.com',
     password: '123456'
   });
 
