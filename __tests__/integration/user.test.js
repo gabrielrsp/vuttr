@@ -14,6 +14,10 @@ describe('User', () => {
     await truncate();
   });
 
+  afterEach(async () => {
+    await truncate();
+  });
+
   it('should be able to encrypt user password when new user is created', async () => {
     const user = await factory.create('User', {
       password: '123456'

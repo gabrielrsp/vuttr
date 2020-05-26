@@ -10,6 +10,10 @@ describe('User', () => {
     await truncate();
   });
 
+  afterEach(async () => {
+    await truncate();
+  });
+
   it('should be able to create a session', async () => {
     await request(app)
     .post('/users')
