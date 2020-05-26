@@ -7,20 +7,13 @@ import auth from '../util/auth';
 
 import truncate from '../util/truncate';
 
-
 let auth;
 
 describe('User', () => {
+
   beforeEach(async () => {
     await truncate()
   });
-
-  afterAll(async () => {
-    await truncate()
-    setTimeout(1000)
-    done()
-  });
-
 
   it('should be able to encrypt user password when new user is created', async () => {
     const user = await factory.create('User', {
@@ -66,21 +59,13 @@ describe('User', () => {
         password: '123456'
       });
 
-      await request(app)
+     const response = await request(app)
       .post('/users')
       .send({
         name: 'pedro',
         email: 'peter@vuttr.com',
         password: '123456'
       });
-
-     const response = await request(app)
-     .post('/users')
-     .send({
-       name: 'pedro',
-       email: 'peter@vuttr.com',
-       password: '123456'
-     });
 
     expect(response.status).toBe(400);
   });
@@ -106,14 +91,6 @@ describe('User', () => {
   it('should not be able to update user with an email that already exists', async () => {
 
     await request(app)
-      .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
-
-      await request(app)
       .post('/users')
       .send({
         name: 'gabriel',

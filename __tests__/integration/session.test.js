@@ -11,12 +11,6 @@ describe('User', () => {
     await truncate()
   });
 
-  afterAll(async () => {
-    await truncate()
-    setTimeout(1000)
-    done()
-  });
-
   it('should be able to create a session', async () => {
     await request(app)
     .post('/users')

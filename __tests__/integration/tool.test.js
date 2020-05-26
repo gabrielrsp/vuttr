@@ -10,12 +10,6 @@ describe('Tool', () => {
     await truncate()
   });
 
-  afterAll(async () => {
-    await truncate()
-    setTimeout(1000)
-    done()
-  });
-
   it('should be able to list all tools on database', async () => {
 
     await request(app)
