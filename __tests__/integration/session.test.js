@@ -6,11 +6,8 @@ import factory from '../factories';
 import truncate from '../util/truncate';
 
 describe('User', () => {
-  beforeEach(async () => {
-    await truncate();
-  });
 
-  afterEach(async () => {
+  beforeEach(async () => {
     await truncate();
   });
 
@@ -32,7 +29,6 @@ describe('User', () => {
 
     expect(response.body).toHaveProperty('token');
   });
-
 
 
   it('should not be able to create a session without password', async () => {

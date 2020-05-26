@@ -9,10 +9,6 @@ describe('Tool', () => {
     await truncate();
   });
 
-  afterEach(async () => {
-    await truncate();
-  });
-
   it('should be able to list all tools on database', async () => {
 
     await request(app)
