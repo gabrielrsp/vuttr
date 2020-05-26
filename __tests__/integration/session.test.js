@@ -8,7 +8,13 @@ import truncate from '../util/truncate';
 describe('User', () => {
 
   beforeEach(async () => {
-    await truncate();
+    await truncate()
+  });
+
+  afterAll(async () => {
+    await truncate()
+    setTimeout(1000)
+    done()
   });
 
   it('should be able to create a session', async () => {

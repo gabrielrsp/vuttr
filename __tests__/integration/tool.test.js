@@ -3,10 +3,17 @@ import request from 'supertest';
 import app from '../../src/app';
 import truncate from '../util/truncate';
 
+
 describe('Tool', () => {
 
   beforeEach(async () => {
-    await truncate();
+    await truncate()
+  });
+
+  afterAll(async () => {
+    await truncate()
+    setTimeout(1000)
+    done()
   });
 
   it('should be able to list all tools on database', async () => {
