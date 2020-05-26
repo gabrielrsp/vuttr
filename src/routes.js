@@ -16,7 +16,7 @@ const routes = new Router();
 routes.post('/users', validateUserStore, UserController.store);
 routes.post('/sessions', validateSessionStore, SessionController.store);
 
-routes.get('/', (req, res) => res.send('ok'));
+routes.get('/', (req, res) => res.send('test route ok'));
 
 routes.use(authMiddleware);
 routes.put('/users', validateUserUpdate, UserController.update);
