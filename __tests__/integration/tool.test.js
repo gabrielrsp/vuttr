@@ -38,15 +38,15 @@ describe('Tool', () => {
     await request(app)
       .post('/users')
       .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
+        name: 'marcela',
+        email: 'marcela@vuttr.com',
         password: '123456'
       });
 
     const res = await request(app)
       .post('/sessions')
       .send({
-        email: 'gabriel@vuttr.com',
+        email: 'marcela@vuttr.com',
         password: '123456'
       });
 
@@ -69,15 +69,15 @@ describe('Tool', () => {
     await request(app)
       .post('/users')
       .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
+        name: 'ana',
+        email: 'ana@vuttr.com',
         password: '123456'
       });
 
     const res = await request(app)
       .post('/sessions')
       .send({
-        email: 'gabriel@vuttr.com',
+        email: 'ana@vuttr.com',
         password: '123456'
       });
 

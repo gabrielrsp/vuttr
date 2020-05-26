@@ -28,8 +28,8 @@ describe('User', () => {
     const response = await request(app)
     .post('/users')
     .send({
-      name: 'joao',
-      email: 'joao@vuttr.com',
+      name: 'hugo',
+      email: 'hugo@vuttr.com',
       password: '123456'
     });
 
@@ -53,16 +53,16 @@ describe('User', () => {
     await request(app)
       .post('/users')
       .send({
-        name: 'joao',
-        email: 'joao@vuttr.com',
+        name: 'peter',
+        email: 'peter@vuttr.com',
         password: '123456'
       });
 
      const response = await request(app)
       .post('/users')
       .send({
-        name: 'john',
-        email: 'joao@vuttr.com',
+        name: 'pedro',
+        email: 'peter@vuttr.com',
         password: '123456'
       });
 

@@ -15,19 +15,19 @@ describe('User', () => {
     await request(app)
     .post('/users')
     .send({
-      name: 'joao',
-      email: 'joao@vuttr.com',
+      name: 'diogo',
+      email: 'diogo@vuttr.com',
       password: '123456'
     });
 
     const response = await request(app)
     .post('/sessions')
     .send({
-      email: 'joao@vuttr.com',
+      email: 'diogo@vuttr.com',
       password: '123456'
     });
 
-    expect(response.body).toHaveProperty('token');
+    expect(response.status).toBe(200);
   });
 
 
