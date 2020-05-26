@@ -10,7 +10,9 @@
     "dev:debug": "nodemon --inspect src/server.js",
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "test": "NODE_ENV=test jest",
-    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all"
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
