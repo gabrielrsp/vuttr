@@ -50,6 +50,27 @@ describe('User', () => {
   });
 
 
+  it('should not be able to create a session with wrong password', async () => {
+    await request(app)
+    .post('/users')
+    .send({
+      name: 'joao',
+      email: 'joao@vuttr.com',
+      password: '123456'
+    });
+
+    const response = await request(app)
+    .post('/sessions')
+    .send({
+      email: 'joao@vuttr.com',
+      password: 'abcdef'
+    });
+
+    expect(response.status).toBe(401);
+  });
+
+
+
   it('should not be able to create a session with invalid credentials', async () => {
     const user = await factory.attrs('Auth');
     const response = await request(app)
