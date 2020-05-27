@@ -18,9 +18,7 @@ describe('User', () => {
   afterAll(() => setTimeout(() => process.exit(), 1000))
 
   it('should be able to encrypt user password when new user is created', async () => {
-    const user = await factory.create('User', {
-      password: '123456'
-    });
+    const user = await factory.create('User', { password: '123456' });
 
     const compareHash = await bcrypt.compare('123456', user.password_hash);
 
@@ -85,33 +83,27 @@ describe('User', () => {
 
   it('should not be able to update user with an email that already exists', async () => {
 
+    const user = await factory.attrs('User');
     await request(app)
       .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
+      .send(user);
 
+    const secondUser = await factory.attrs('User', { email: 'gabriel@vuttr.com' });
     await request(app)
       .post('/users')
-      .send({
-        name: 'joao',
-        email: 'joao@vuttr.com',
-        password: '123456'
-      });
+      .send(secondUser);
 
     const res = await request(app)
       .post('/sessions')
       .send({
-        email: 'joao@vuttr.com',
-        password: '123456'
+        email: user.email,
+        password: user.password
       });
 
     const response = await request(app)
       .put('/users')
       .send({
-        email: 'gabriel@vuttr.com'
+        email: secondUser.email
       })
       .set('Authorization', `Bearer ${res.body.token}`)
 
