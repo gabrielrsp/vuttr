@@ -14,9 +14,7 @@ describe('User', () => {
   afterAll(() => setTimeout(() => process.exit(), 1000))
 
   it('should be able to create a session', async () => {
-
     const user = await factory.attrs('User');
-
     await request(app)
       .post('/users')
       .send(user);
@@ -42,19 +40,16 @@ describe('User', () => {
   });
 
   it('should not be able to create a session with wrong password', async () => {
+    const user = await factory.attrs('User');
     await request(app)
       .post('/users')
-      .send({
-        name: 'joao',
-        email: 'joao@vuttr.com',
-        password: '123456'
-      });
+      .send(user);
 
     const response = await request(app)
       .post('/sessions')
       .send({
-        email: 'joao@vuttr.com',
-        password: 'abcdef'
+        email: user.email,
+        password: 'abcdef321'
       });
 
     expect(response.status).toBe(401);
