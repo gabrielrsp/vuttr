@@ -102,9 +102,7 @@ describe('User', () => {
 
     const response = await request(app)
       .put('/users')
-      .send({
-        email: secondUser.email
-      })
+      .send({ email: secondUser.email })
       .set('Authorization', `Bearer ${res.body.token}`)
 
     expect(response.status).toBe(400);
@@ -112,25 +110,22 @@ describe('User', () => {
 
   it(`should not be able to update password without passing the old password correctly`, async () => {
 
+    const user = await factory.attrs('User', { password: '123456' });
     await request(app)
       .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
+      .send(user);
 
     const res = await request(app)
       .post('/sessions')
       .send({
-        email: 'gabriel@vuttr.com',
-        password: '123456'
+        email: user.email,
+        password: user.password
       });
 
     const response = await request(app)
       .put('/users')
       .send({
-        oldPassword: '1234567',
+        oldPassword: '1234567abc',
         password: "654321",
         confirmPassword: "654321"
       })
