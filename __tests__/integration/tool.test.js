@@ -70,15 +70,11 @@ describe('Tool', () => {
 
 
   it('should be able to delete a tool given its id number', async () => {
+    const tool = await factory.attrs('Tool');
 
     const resId = await request(app)
       .post('/tools')
-      .send({
-        title: 'hotel',
-        link: 'https://github.com/typicode/hotel',
-        description: 'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
-        tags: ['node', 'organizing', 'webapps', 'domain', 'developer', 'https', 'proxy']
-      })
+      .send(tool)
       .set('Authorization', `Bearer ${auth.token}`)
 
     let id = resId.body.id
