@@ -68,7 +68,7 @@ describe('User', () => {
       .post('/users')
       .send(user);
 
-      const response = await request(app)
+    const response = await request(app)
       .post('/sessions')
       .send({
         email: user.email,

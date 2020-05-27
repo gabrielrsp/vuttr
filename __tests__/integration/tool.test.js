@@ -3,7 +3,6 @@ import request from 'supertest';
 import app from '../../src/app';
 import truncate from '../util/truncate';
 
-
 describe('Tool', () => {
 
   beforeEach(async () => {
@@ -66,8 +65,6 @@ describe('Tool', () => {
     expect(response.status).toBe(201);
   });
 
-
-
   it('should not be able to register a tool without a title ', async () => {
     await request(app)
       .post('/users')
@@ -95,7 +92,6 @@ describe('Tool', () => {
 
     expect(response.status).toBe(400);
   });
-
 
   it('should be able to list all tools based on tag search', async () => {
 
@@ -150,7 +146,7 @@ describe('Tool', () => {
         password: '123456'
       });
 
-   const resId = await request(app)
+    const resId = await request(app)
       .post('/tools')
       .send({
         title: 'hotel',

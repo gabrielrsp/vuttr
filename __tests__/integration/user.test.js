@@ -80,7 +80,6 @@ describe('User', () => {
     expect(response.status).toBe(401);
   });
 
-
   it('should not be able to update user with an email that already exists', async () => {
 
     const user = await factory.attrs('User');
