@@ -72,14 +72,12 @@ describe('User', () => {
     expect(response.status).toBe(401);
   });
 
-
   it('should not be able to update user without token', async () => {
     const response = await request(app)
       .put('/users')
 
     expect(response.status).toBe(401);
   });
-
 
   it('should not be able to update user with an email that already exists', async () => {
 

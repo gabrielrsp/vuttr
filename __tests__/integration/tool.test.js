@@ -18,7 +18,6 @@ describe('Tool', () => {
     await truncate()
   });
 
-
   it('should be able to list all tools on database', async () => {
     const response = await request(app)
       .get('/tools')
@@ -63,7 +62,6 @@ describe('Tool', () => {
 
     expect(response.status).toBe(200);
   });
-
 
   it('should be able to delete a tool given its id number', async () => {
     const tool = await factory.attrs('Tool');
