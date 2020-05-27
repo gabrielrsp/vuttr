@@ -5,7 +5,7 @@ import app from '../../src/app';
 import truncate from '../util/truncate';
 import auth from '../util/auth';
 
-let auth ;
+let auth;
 
 describe('Tool', () => {
 
@@ -14,19 +14,16 @@ describe('Tool', () => {
   });
 
   beforeAll(async () => {
-    auth = await  auth();
+    auth = await auth();
   });
 
-
   afterAll(async () => {
-
     setTimeout(() => process.exit(), 1000)
     await truncate()
   });
 
 
   it('should be able to list all tools on database', async () => {
-
     const response = await request(app)
       .get('/tools')
       .set('Authorization', `Bearer ${auth.token}`)
@@ -35,7 +32,6 @@ describe('Tool', () => {
   });
 
   it('should be able to register a tool ', async () => {
-
     const tool = await factory.attrs('Tool');
 
     const response = await request(app)
@@ -47,14 +43,11 @@ describe('Tool', () => {
   });
 
   it('should not be able to register a tool without a title ', async () => {
+    const tool = await factory.attrs('Tool', { title: ''});
 
     const response = await request(app)
       .post('/tools')
-      .send({
-        link: 'https://github.com/typicode/hotel',
-        description: 'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
-        tags: ['node', 'organizing', 'webapps', 'domain', 'developer', 'https', 'proxy']
-      })
+      .send(tool)
       .set('Authorization', `Bearer ${auth.token}`)
 
     expect(response.status).toBe(400);
