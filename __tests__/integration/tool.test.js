@@ -1,7 +1,11 @@
 import request from 'supertest';
 
+import factory from '../factories';
 import app from '../../src/app';
 import truncate from '../util/truncate';
+import auth from '../util/auth';
+
+let auth ;
 
 describe('Tool', () => {
 
@@ -9,77 +13,40 @@ describe('Tool', () => {
     await truncate()
   });
 
-  afterAll(() => setTimeout(() => process.exit(), 1000))
+  beforeAll(async () => {
+    auth = await  auth();
+  });
+
+
+  afterAll(async () => {
+
+    setTimeout(() => process.exit(), 1000)
+    await truncate()
+  });
+
 
   it('should be able to list all tools on database', async () => {
 
-    await request(app)
-      .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
-
-    const res = await request(app)
-      .post('/sessions')
-      .send({
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
-
     const response = await request(app)
       .get('/tools')
-      .set('Authorization', `Bearer ${res.body.token}`)
+      .set('Authorization', `Bearer ${auth.token}`)
 
     expect(response.status).toBe(200);
   });
 
-
   it('should be able to register a tool ', async () => {
-    await request(app)
-      .post('/users')
-      .send({
-        name: 'marcela',
-        email: 'marcela@vuttr.com',
-        password: '123456'
-      });
 
-    const res = await request(app)
-      .post('/sessions')
-      .send({
-        email: 'marcela@vuttr.com',
-        password: '123456'
-      });
+    const tool = await factory.attrs('Tool');
 
     const response = await request(app)
       .post('/tools')
-      .send({
-        title: 'hotel',
-        link: 'https://github.com/typicode/hotel',
-        description: 'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
-        tags: ['node', 'organizing', 'webapps', 'domain', 'developer', 'https', 'proxy']
-      })
-      .set('Authorization', `Bearer ${res.body.token}`)
+      .send(tool)
+      .set('Authorization', `Bearer ${auth.token}`)
 
     expect(response.status).toBe(201);
   });
 
   it('should not be able to register a tool without a title ', async () => {
-    await request(app)
-      .post('/users')
-      .send({
-        name: 'ana',
-        email: 'ana@vuttr.com',
-        password: '123456'
-      });
-
-    const res = await request(app)
-      .post('/sessions')
-      .send({
-        email: 'ana@vuttr.com',
-        password: '123456'
-      });
 
     const response = await request(app)
       .post('/tools')
@@ -88,7 +55,7 @@ describe('Tool', () => {
         description: 'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
         tags: ['node', 'organizing', 'webapps', 'domain', 'developer', 'https', 'proxy']
       })
-      .set('Authorization', `Bearer ${res.body.token}`)
+      .set('Authorization', `Bearer ${auth.token}`)
 
     expect(response.status).toBe(400);
   });
@@ -96,21 +63,6 @@ describe('Tool', () => {
   it('should be able to list all tools based on tag search', async () => {
 
     await request(app)
-      .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
-
-    const res = await request(app)
-      .post('/sessions')
-      .send({
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
-
-    await request(app)
       .post('/tools')
       .send({
         title: 'hotel',
@@ -118,33 +70,18 @@ describe('Tool', () => {
         description: 'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
         tags: ['node', 'organizing', 'webapps', 'domain', 'developer', 'https', 'proxy']
       })
-      .set('Authorization', `Bearer ${res.body.token}`)
+      .set('Authorization', `Bearer ${auth.token}`)
 
 
     const response = await request(app)
       .get('/tools?tag=node')
-      .set('Authorization', `Bearer ${res.body.token}`)
+      .set('Authorization', `Bearer ${auth.token}`)
 
     expect(response.status).toBe(200);
   });
 
 
   it('should be able to delete a tool given its id number', async () => {
-
-    await request(app)
-      .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
-
-    const res = await request(app)
-      .post('/sessions')
-      .send({
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
 
     const resId = await request(app)
       .post('/tools')
@@ -154,17 +91,16 @@ describe('Tool', () => {
         description: 'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
         tags: ['node', 'organizing', 'webapps', 'domain', 'developer', 'https', 'proxy']
       })
-      .set('Authorization', `Bearer ${res.body.token}`)
+      .set('Authorization', `Bearer ${auth.token}`)
 
     let id = resId.body.id
 
     const response = await request(app)
       .delete(`/tools/${id}`)
-      .set('Authorization', `Bearer ${res.body.token}`)
+      .set('Authorization', `Bearer ${auth.token}`)
 
     expect(response.status).toBe(204);
   });
-
 
 });
 
