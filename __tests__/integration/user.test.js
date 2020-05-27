@@ -134,22 +134,18 @@ describe('User', () => {
     expect(response.status).toBe(401);
   });
 
-
   it(`should be able to update user`, async () => {
 
+    const user = await factory.attrs('User');
     await request(app)
       .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
+      .send(user);
 
     const res = await request(app)
       .post('/sessions')
       .send({
-        email: 'gabriel@vuttr.com',
-        password: '123456'
+        email: user.email,
+        password: user.password
       });
 
     const response = await request(app)
