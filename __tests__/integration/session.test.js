@@ -10,9 +10,7 @@ describe('User', () => {
     await truncate()
   });
 
-  afterAll(async () => {
-    await exit()
-  });
+  afterAll(() => setTimeout(() => process.exit(), 1000))
 
   it('should be able to create a session', async () => {
     const user = await factory.attrs('User');
