@@ -54,17 +54,12 @@ describe('Tool', () => {
   });
 
   it('should be able to list all tools based on tag search', async () => {
+    const tool = await factory.attrs('Tool', { title: ''});
 
     await request(app)
       .post('/tools')
-      .send({
-        title: 'hotel',
-        link: 'https://github.com/typicode/hotel',
-        description: 'Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.',
-        tags: ['node', 'organizing', 'webapps', 'domain', 'developer', 'https', 'proxy']
-      })
+      .send(tool)
       .set('Authorization', `Bearer ${auth.token}`)
-
 
     const response = await request(app)
       .get('/tools?tag=node')
