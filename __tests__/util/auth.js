@@ -22,7 +22,7 @@ export default async () => {
     password: '123456'
   });
 
-  return { token: response.body.token }; // save the token!
+  return { token: response.body.token };
 
 }
 

@@ -2,7 +2,6 @@ import request from 'supertest';
 
 import app from '../../src/app';
 import factory from '../factories';
-
 import truncate from '../util/truncate';
 
 describe('User', () => {
@@ -11,68 +10,55 @@ describe('User', () => {
     await truncate()
   });
 
-
   afterAll(() => setTimeout(() => process.exit(), 1000))
 
   it('should be able to create a session', async () => {
     await request(app)
-    .post('/users')
-    .send({
-      name: 'diogo',
-      email: 'diogo@vuttr.com',
-      password: '123456'
-    });
+      .post('/users')
+      .send({
+        name: 'diogo',
+        email: 'diogo@vuttr.com',
+        password: '123456'
+      });
 
     const response = await request(app)
-    .post('/sessions')
-    .send({
-      email: 'diogo@vuttr.com',
-      password: '123456'
-    });
+      .post('/sessions')
+      .send({
+        email: 'diogo@vuttr.com',
+        password: '123456'
+      });
 
     expect(response.status).toBe(200);
   });
 
-
   it('should not be able to create a session without password', async () => {
-    await request(app)
-    .post('/users')
-    .send({
-      name: 'joao',
-      email: 'joao@vuttr.com',
-      password: '123456'
-    });
-
     const response = await request(app)
-    .post('/sessions')
-    .send({
-      email: 'joao@vuttr.com',
-    });
+      .post('/sessions')
+      .send({
+        email: 'joao@vuttr.com',
+      });
 
     expect(response.status).toBe(400);
   });
 
-
   it('should not be able to create a session with wrong password', async () => {
     await request(app)
-    .post('/users')
-    .send({
-      name: 'joao',
-      email: 'joao@vuttr.com',
-      password: '123456'
-    });
+      .post('/users')
+      .send({
+        name: 'joao',
+        email: 'joao@vuttr.com',
+        password: '123456'
+      });
 
     const response = await request(app)
-    .post('/sessions')
-    .send({
-      email: 'joao@vuttr.com',
-      password: 'abcdef'
-    });
+      .post('/sessions')
+      .send({
+        email: 'joao@vuttr.com',
+        password: 'abcdef'
+      });
 
     expect(response.status).toBe(401);
   });
-
-
 
   it('should not be able to create a session with invalid credentials', async () => {
     const user = await factory.attrs('Auth');
@@ -81,7 +67,6 @@ describe('User', () => {
       .send(user);
     expect(response.status).toBe(401);
   });
-
 
   it('should not be able to create a session with invalid password', async () => {
     await request(app)

@@ -28,50 +28,43 @@ describe('User', () => {
   });
 
   it('should be able to register', async () => {
+    const user = await factory.attrs('User');
+
     const response = await request(app)
-    .post('/users')
-    .send({
-      name: 'hugo',
-      email: 'hugo@vuttr.com',
-      password: '123456'
-    });
+      .post('/users')
+      .send(user);
 
     expect(response.body).toHaveProperty('id');
+
   });
-
-
-  it('should not be able to register without name', async () => {
-    const response = await request(app)
-      .post('/users')
-      .send({
-        email: 'joao@vuttr.com',
-        password: '123456'
-      });
-
-    expect(response.status).toBe(400);
-  });
-
 
   it('should not be able to register with duplicated email', async () => {
+
+    const user = await factory.attrs('User');
     await request(app)
       .post('/users')
-      .send({
-        name: 'peter',
-        email: 'peter@vuttr.com',
-        password: '123456'
-      });
+      .send(user);
 
-     const response = await request(app)
+    const secondUser = await factory.attrs('User', {
+      email: user.email
+    });
+
+    const response = await request(app)
       .post('/users')
-      .send({
-        name: 'pedro',
-        email: 'peter@vuttr.com',
-        password: '123456'
-      });
+      .send(secondUser);
 
     expect(response.status).toBe(400);
   });
 
+  it('should not be able to register without name', async () => {
+    const user = await factory.attrs('Auth');
+
+    const response = await request(app)
+      .post('/users')
+      .send(user);
+
+    expect(response.status).toBe(400);
+  });
 
   it('should not be able to update user with invalid token', async () => {
     const response = await request(app)
@@ -124,8 +117,6 @@ describe('User', () => {
 
     expect(response.status).toBe(400);
   });
-
-
 
   it(`should not be able to update password without passing the old password correctly`, async () => {
 
@@ -215,6 +206,4 @@ describe('User', () => {
 
     expect(response.status).toBe(400);
   });
-
-
 });
