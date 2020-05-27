@@ -64,18 +64,15 @@ describe('User', () => {
   });
 
   it('should not be able to create a session with invalid password', async () => {
+    const user = await factory.attrs('User');
     await request(app)
       .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
+      .send(user);
 
-    const response = await request(app)
+      const response = await request(app)
       .post('/sessions')
       .send({
-        email: 'gabriel@vuttr.com',
+        email: user.email,
         password: '654321'
       });
 
