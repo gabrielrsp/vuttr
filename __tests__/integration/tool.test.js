@@ -9,10 +9,6 @@ let auth;
 
 describe('Tool', () => {
 
-  beforeEach(async () => {
-    await truncate()
-  });
-
   beforeAll(async () => {
     auth = await auth();
   });
@@ -43,7 +39,7 @@ describe('Tool', () => {
   });
 
   it('should not be able to register a tool without a title ', async () => {
-    const tool = await factory.attrs('Tool', { title: ''});
+    const tool = await factory.attrs('Tool', { title: '' });
 
     const response = await request(app)
       .post('/tools')
@@ -54,7 +50,7 @@ describe('Tool', () => {
   });
 
   it('should be able to list all tools based on tag search', async () => {
-    const tool = await factory.attrs('Tool', { title: ''});
+    const tool = await factory.attrs('Tool', { title: '' });
 
     await request(app)
       .post('/tools')

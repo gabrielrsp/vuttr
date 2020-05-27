@@ -1,25 +1,23 @@
 import request from 'supertest';
 import app from '../../src/app';
+import factory from '../factories';
 import truncate from '../util/truncate';
 
 export default async () => {
 
   await truncate();
 
+  const user = await factory.attrs('User');
   await request(app)
-  .post('/users')
-  .send({
-    name: 'maria',
-    email: 'maria@vuttr.com',
-    password: '123456'
-  });
+    .post('/users')
+    .send(user);
 
   const response = await request(app)
-  .post('/sessions')
-  .send({
-    email: 'maria@vuttr.com',
-    password: '123456'
-  });
+    .post('/sessions')
+    .send({
+      email: user.email,
+      password: user.password
+    });
 
   return { token: response.body.token };
 }
