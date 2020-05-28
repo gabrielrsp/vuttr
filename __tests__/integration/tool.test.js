@@ -13,10 +13,6 @@ describe('Tool', () => {
     auth = await auth();
   });
 
-  afterAll(async () => {
-    setTimeout(() => process.exit(), 1000)
-    await truncate()
-  });
 
   it('should be able to list all tools on database', async () => {
     const response = await request(app)
