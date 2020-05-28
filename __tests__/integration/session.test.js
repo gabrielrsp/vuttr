@@ -2,7 +2,6 @@ import request from 'supertest';
 
 import app from '../../src/app';
 import factory from '../factories';
-
 import truncate from '../util/truncate';
 
 describe('User', () => {
@@ -12,64 +11,46 @@ describe('User', () => {
   });
 
   it('should be able to create a session', async () => {
+    const user = await factory.attrs('User');
     await request(app)
-    .post('/users')
-    .send({
-      name: 'diogo',
-      email: 'diogo@vuttr.com',
-      password: '123456'
-    });
+      .post('/users')
+      .send(user);
 
     const response = await request(app)
-    .post('/sessions')
-    .send({
-      email: 'diogo@vuttr.com',
-      password: '123456'
-    });
+      .post('/sessions')
+      .send({
+        email: user.email,
+        password: user.password
+      });
 
     expect(response.status).toBe(200);
   });
 
-
   it('should not be able to create a session without password', async () => {
-    await request(app)
-    .post('/users')
-    .send({
-      name: 'joao',
-      email: 'joao@vuttr.com',
-      password: '123456'
-    });
-
     const response = await request(app)
-    .post('/sessions')
-    .send({
-      email: 'joao@vuttr.com',
-    });
+      .post('/sessions')
+      .send({
+        email: 'joao@vuttr.com',
+      });
 
     expect(response.status).toBe(400);
   });
 
-
   it('should not be able to create a session with wrong password', async () => {
+    const user = await factory.attrs('User');
     await request(app)
-    .post('/users')
-    .send({
-      name: 'joao',
-      email: 'joao@vuttr.com',
-      password: '123456'
-    });
+      .post('/users')
+      .send(user);
 
     const response = await request(app)
-    .post('/sessions')
-    .send({
-      email: 'joao@vuttr.com',
-      password: 'abcdef'
-    });
+      .post('/sessions')
+      .send({
+        email: user.email,
+        password: 'abcdef321'
+      });
 
     expect(response.status).toBe(401);
   });
-
-
 
   it('should not be able to create a session with invalid credentials', async () => {
     const user = await factory.attrs('Auth');
@@ -79,20 +60,16 @@ describe('User', () => {
     expect(response.status).toBe(401);
   });
 
-
   it('should not be able to create a session with invalid password', async () => {
+    const user = await factory.attrs('User');
     await request(app)
       .post('/users')
-      .send({
-        name: 'gabriel',
-        email: 'gabriel@vuttr.com',
-        password: '123456'
-      });
+      .send(user);
 
     const response = await request(app)
       .post('/sessions')
       .send({
-        email: 'gabriel@vuttr.com',
+        email: user.email,
         password: '654321'
       });
 
