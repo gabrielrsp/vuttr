@@ -48,6 +48,7 @@ class ToolController {
   async delete(req, res) {
 
     const { id } = req.params
+
     const tool = await Tool.findOne({
       where: { id }
     });
@@ -58,8 +59,44 @@ class ToolController {
       });
 
       return res.status(204).send()
+    } else {
+      return res.status(400).json({ error: 'tool not found' });
     }
   }
+
+  async update(req, res) {
+
+    const { id } = req.params
+    const { title, link, description, tags } = req.body;
+
+    let tool = await Tool.findByPk(id)
+
+    await tool.update(req.body)
+
+    tool = await tool.update(
+      {
+        title,
+        link,
+        description,
+        tags
+      },
+      { where: { id } }
+    );
+
+    return res.status(200).json({
+      title,
+      link,
+      description,
+      tags,
+      id: tool.id
+    });
+
+
+
+  }
+
+
+
 }
 
 export default new ToolController();

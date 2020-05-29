@@ -53,7 +53,7 @@ describe('User', () => {
       .post('/users')
       .send(secondUser);
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(409);
   });
 
   it('should not be able to register without name', async () => {

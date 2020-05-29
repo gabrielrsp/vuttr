@@ -62,6 +62,28 @@ describe('Tool', () => {
     expect(response.status).toBe(200);
   });
 
+
+  it('should be able to update a tool given its id number', async () => {
+    const tool = await factory.attrs('Tool');
+
+    const resId = await request(app)
+      .post('/tools')
+      .send(tool)
+      .set('Authorization', `Bearer ${auth.token}`)
+
+    let id = resId.body.id
+
+    const updateTool = await factory.attrs('Tool');
+
+    const response = await request(app)
+      .put(`/tools/${id}`)
+      .send(updateTool)
+      .set('Authorization', `Bearer ${auth.token}`)
+
+    expect(response.status).toBe(200);
+  });
+
+
   it('should be able to delete a tool given its id number', async () => {
     const tool = await factory.attrs('Tool');
 
@@ -77,6 +99,22 @@ describe('Tool', () => {
       .set('Authorization', `Bearer ${auth.token}`)
 
     expect(response.status).toBe(204);
+  });
+
+
+  it('should not be able to delete a tool with a non existing id', async () => {
+    const tool = await factory.attrs('Tool');
+
+    await request(app)
+      .post('/tools')
+      .send(tool)
+      .set('Authorization', `Bearer ${auth.token}`)
+
+    const response = await request(app)
+      .delete(`/tools/0`)
+      .set('Authorization', `Bearer ${auth.token}`)
+
+    expect(response.status).toBe(400);
   });
 
 });

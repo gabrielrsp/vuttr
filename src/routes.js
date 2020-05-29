@@ -23,6 +23,7 @@ routes.put('/users', validateUserUpdate, UserController.update);
 
 routes.get('/tools', ToolController.index);
 routes.post('/tools', validateToolStore, ToolController.store);
+routes.put('/tools/:id', ToolController.update)
 routes.delete('/tools/:id', ToolController.delete)
 
 export default routes;
