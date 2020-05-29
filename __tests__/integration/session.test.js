@@ -11,6 +11,7 @@ describe('User', () => {
   });
 
   afterAll(async () => {
+    await truncate()
     setTimeout(() => process.exit(), 1000)
   });
 

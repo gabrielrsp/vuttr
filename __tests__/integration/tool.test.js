@@ -14,6 +14,7 @@ describe('Tool', () => {
   });
 
   afterAll(async () => {
+    await truncate()
     setTimeout(() => process.exit(), 1000)
   });
 
