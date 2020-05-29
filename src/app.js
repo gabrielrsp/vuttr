@@ -9,7 +9,6 @@ import RateLimitRedis from 'rate-limit-redis';
 import cors from 'cors';
 import routes from './routes';
 import Youch from 'youch';
-
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from '../src/swagger.json';
 
@@ -60,7 +59,6 @@ class App {
       return res.status(500).json({ error: 'Internal server error' });
     });
   }
-
 }
 
 export default new App().server;
