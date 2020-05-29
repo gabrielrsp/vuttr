@@ -2,9 +2,7 @@ import Tool from '../models/Tool';
 import { Op } from 'sequelize';
 
 class ToolController {
-
   async index(req, res) {
-
     if (req.query.tag) {
       const tag = req.query.tag;
 
@@ -27,7 +25,6 @@ class ToolController {
   }
 
   async store(req, res) {
-
     const { title, link, description, tags } = req.body;
     const tool = await Tool.create({
       title,
@@ -46,7 +43,6 @@ class ToolController {
   }
 
   async delete(req, res) {
-
     const { id } = req.params
 
     const tool = await Tool.findOne({
@@ -65,7 +61,6 @@ class ToolController {
   }
 
   async update(req, res) {
-
     const { id } = req.params
     const { title, link, description, tags } = req.body;
 
@@ -90,13 +85,7 @@ class ToolController {
       tags,
       id: tool.id
     });
-
-
-
   }
-
-
-
 }
 
 export default new ToolController();
