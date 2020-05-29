@@ -62,24 +62,24 @@ Agora, supondo que você já tenha Node.JS e Yarn instalados,
 Você precisa definir a configuração das variáveis de ambiente do projeto. Se você seguiu a configuração do contêiner, poderá seguir este exemplo:
 
 
-#### `APP_URL=http://localhost:3000`
-#### `NODE_ENV=development`
+##### `APP_URL=http://localhost:3000`
+##### `NODE_ENV=development`
 
-#### #Auth
+##### #Auth
 
-#### `APP_SECRET=vuttrnode`
+##### `APP_SECRET=vuttrnode`
 
-#### #Database
+##### #Database
 
-#### `DB_HOST=localhost`
-#### `DB_USER=postgres`
-#### `DB_PASS=docker`
-#### `DB_NAME=vuttr`
+##### `DB_HOST=localhost`
+##### `DB_USER=postgres`
+##### `DB_PASS=docker`
+##### `DB_NAME=vuttr`
 
-#### #Redis
+##### #Redis
 
-#### `REDIS_HOST=127.0.0.1`
-#### `REDIS_PORT=6379`
+##### `REDIS_HOST=127.0.0.1`
+##### `REDIS_PORT=6379`
 
 
 ### Conecte-se ao banco de dados
