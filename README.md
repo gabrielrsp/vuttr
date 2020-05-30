@@ -97,7 +97,7 @@ Você precisa instalar a interface da linha de comandos do sequelize como uma de
 
 Agora você pode executar migrações para criar as relações no banco de dados criado
 
-#### `yarn sequelize db: migrate`
+#### `yarn sequelize db:migrate`
 
 ### 🚀 O servidor está pronto! Você pode executá-lo com o comando:
 
