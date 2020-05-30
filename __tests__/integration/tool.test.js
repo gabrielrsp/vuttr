@@ -2,7 +2,6 @@ import request from 'supertest';
 
 import factory from '../factories';
 import app from '../../src/app';
-import truncate from '../util/truncate';
 import auth from '../util/auth';
 
 let auth;
