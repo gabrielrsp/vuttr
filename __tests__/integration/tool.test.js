@@ -13,7 +13,7 @@ describe('Tool', () => {
   });
 
   afterAll(async () => {
-    setTimeout(() => process.exit(), 1000)
+    await truncate()
   });
 
   it('should be able to list all tools on database', async () => {
