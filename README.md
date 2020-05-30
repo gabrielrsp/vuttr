@@ -82,6 +82,10 @@ Você precisa definir a configuração das variáveis de ambiente do projeto. Se
 ##### `REDIS_PORT=6379`
 
 
+### Crie o arquivo .env.test
+
+Para configurar o ambiente de teste. você pode criar um arquivo .env.test utilizando o mesmo exemplo acima, mudando DB_NAME atribuindo o nome do seu banco de dados para testes e substituindo NODE_ENV=development por NODE_ENV=test
+
 ### Conecte-se ao banco de dados
 
 Agora, você precisa se conectar ao banco de dados e criar outro banco de dados com o nome que você deu nas credenciais .env. Neste exemplo, o nome do banco de dados é "vuttr". Para esta etapa, você pode usar qualquer interface de cliente do postgres como PostBird, DBeaver, etc.
@@ -102,6 +106,10 @@ Agora você pode executar migrações para criar as relações no banco de dados
 ### 🚀 O servidor está pronto! Você pode executá-lo com o comando:
 
 #### `yarn dev`
+
+### 📝 Para executar os testes:
+
+#### `yarn test`
 
 ### 📜 Para acessar a documentação : http://localhost:3000/swagger
 
