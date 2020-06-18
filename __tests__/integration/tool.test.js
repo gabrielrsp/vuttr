@@ -2,7 +2,6 @@ import request from 'supertest';
 
 import factory from '../factories';
 import app from '../../src/app';
-import truncate from '../util/truncate';
 import auth from '../util/auth';
 
 let auth;
@@ -14,7 +13,7 @@ describe('Tool', () => {
   });
 
   afterAll(async () => {
-    setTimeout(() => process.exit(), 1000)
+    await truncate()
   });
 
   it('should be able to list all tools on database', async () => {
