@@ -21,6 +21,7 @@ routes.use(authMiddleware);
 routes.put('/users', validateUserUpdate, UserController.update);
 
 routes.get('/tools', ToolController.index);
+routes.get('/tools/:id', ToolController.show);
 routes.post('/tools', validateToolStore, ToolController.store);
 routes.put('/tools/:id', ToolController.update)
 routes.delete('/tools/:id', ToolController.delete)
