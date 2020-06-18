@@ -16,7 +16,20 @@ class ToolController {
       })
       return res.json(tool);
 
-    } else {
+    }
+
+    else if (req.params) {
+      const { id } = req.params;
+
+      const tool = await Tool.findByPk(id, {
+        attributes: ['id', 'title', 'link', 'description', 'tags'],
+      })
+
+      return res.json(tool)
+
+    }
+
+    else {
       const tool = await Tool.findAll({
         attributes: ['id', 'title', 'link', 'description', 'tags'],
       })

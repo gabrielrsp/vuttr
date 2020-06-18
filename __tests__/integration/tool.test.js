@@ -84,6 +84,24 @@ describe('Tool', () => {
   });
 
 
+  it('should be able to show an specific tools based on its id', async () => {
+    const tool = await factory.attrs('Tool');
+
+    const resId = await request(app)
+      .post('/tools')
+      .send(tool)
+      .set('Authorization', `Bearer ${auth.token}`)
+
+    let id = resId.body.id
+
+    const response = await request(app)
+      .get(`/tools/${id}`)
+      .set('Authorization', `Bearer ${auth.token}`)
+
+    expect(response.status).toBe(200);
+  });
+
+
   it('should be able to delete a tool given its id number', async () => {
     const tool = await factory.attrs('Tool');
 
