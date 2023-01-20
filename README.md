@@ -5,13 +5,13 @@
 
 <h3 align="center">VUTTR - Very Useful Tools to Remember</h3>
 
-<p align="center">Desafio Back-end da BossaBox</p>
+<p align="center">A backend challenge by BossaBox</p>
 
-## 💻 Sobre o projeto
+## 💻 About the project
 
- VUTTR (Very Useful Tools to Remember) é uma api de repositório simples para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.
+ VUTTR (Very Useful Tools to Remember) is an api that provides a repository to manage tools with their respective names, links, descriptions and tags.
 
- #### Tecnologias utilizadas
+ #### Technologies used
 
   -  [NodeJS](https://nodejs.org/)
   -  [ExpressJS](https://expressjs.com/)
@@ -25,42 +25,41 @@
   -  [Nodemon](https://nodemon.io/)
 
 
-## 🔧 Instalando o projeto
+## 🔧 Installing the project
 
-Primeiro, se você não possui o postgres e o redis, tente instalar a imagem do docker do postgres e do redis, seguindo as etapas abaixo
+First, if you don't have postgres and redis, try installing the postgres and redis docker image by following the steps below
 
 ### Exemplo:
-Supondo que você já tenha o docker instalado, faça o download das imagens postgres e redis e defina os parâmetros do contêiner
+Assuming you already have docker installed, download the postgres and redis images and set the container parameters
 
-### Baixe a imagem do postgres
+### Download the postgres docker image
 
 #### `docker run --name postgres -e POSTGRES_PASSWORD = docker -p 5432: 5432 -d postgres`
 
-### Baixe a imagem do redis
+### Download the redis docker image
 
 #### `docker run --name redis -p 6379: 6379 -d -t redis: alpine`
 
-### Inicie os contêineres
+### Start the containers
 
 #### `docker start postgres redis`
 
 
-Agora, supondo que você já tenha Node.JS e Yarn instalados,
+Now, assuming you already have Node.JS and any package manager installed
 
-### Clone este repositório
+### Clone this repository
 
 #### `git clone https://github.com/gabrielrsp/vuttr.git`
 
-#### cd no diretório do projeto:
+#### cd to the project directory:
 
-### Instale as dependências
+### Install dependencies
 
-#### `yarn install`
+#### `ex: yarn install`
 
-### Crie o arquivo .env:
+### Create the .env file:
 
-Você precisa definir a configuração das variáveis de ambiente do projeto. Se você seguiu a configuração do contêiner, poderá seguir este exemplo:
-
+You need to set the project environment variables setting. If you followed the container configuration, you can follow this example:
 
 ##### `APP_URL=http://localhost:3000`
 ##### `NODE_ENV=development`
@@ -82,34 +81,34 @@ Você precisa definir a configuração das variáveis de ambiente do projeto. Se
 ##### `REDIS_PORT=6379`
 
 
-### Crie o arquivo .env.test
+### Create the file .env.test
 
-Para configurar o ambiente de teste. você pode criar um arquivo .env.test utilizando o mesmo exemplo acima, mudando DB_NAME atribuindo o nome do seu banco de dados para testes e substituindo NODE_ENV=development por NODE_ENV=test
+To set up the test environment. you can create a .env.test file using the same example above, changing DB_NAME assigning the name of your database to tests and replacing NODE_ENV=development with NODE_ENV=test
 
-### Conecte-se ao banco de dados
+### Connect to the database
 
-Agora, você precisa se conectar ao banco de dados e criar outro banco de dados com o nome que você deu nas credenciais .env. Neste exemplo, o nome do banco de dados é "vuttr". Para esta etapa, você pode usar qualquer interface de cliente do postgres como PostBird, DBeaver, etc.
+Now you need to connect to the database and create another database with the name you gave in the .env credentials. In this example, the database name is "vuttr". For this step, you can use any postgres client interface like PostBird, DBeaver, etc.
 
 
-### Instale a dependência do sequelize-cli
+### Install dependencies of sequelize-cli
 
-Você precisa instalar a interface da linha de comandos do sequelize como uma dependência do desenvolvedor passando o sinalizador "-D" para poder executar comandos sequelize
+You need to install sequelize command line interface as a developer dependency by passing the "-D" flag to be able to run sequelize commands
 
 #### `yarn add sequelize-cli -D`
 
-### Execute as migrations
+### Execute the migrations
 
-Agora você pode executar migrações para criar as relações no banco de dados criado
+Now you can run migrations to create the relationships in the created database
 
 #### `yarn sequelize db:migrate`
 
-### 🚀 O servidor está pronto! Você pode executá-lo com o comando:
+### 🚀 Server is ready! You can run it with the command:
 
 #### `yarn dev`
 
-### 📝 Para executar os testes:
+### 📝 To excecute tests:
 
 #### `yarn test`
 
-### 📜 Para acessar a documentação : http://localhost:3000/swagger
+### 📜 Documentation : http://localhost:3000/swagger
 
