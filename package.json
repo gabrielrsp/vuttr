@@ -28,7 +28,7 @@
     "pg-hstore": "^2.3.3",
     "rate-limit-redis": "^2.0.0",
     "redis": "^3.0.2",
-    "sequelize": "^5.21.10",
+    "sequelize": "^6.28.2",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4",
     "youch": "^2.0.10",
